@@ -10,7 +10,7 @@ assignees: ''
 ## Overview(Required)
 - TODO
 
-## Define of Done
+## Definition of Done
 - TODO
 
 ## Links
