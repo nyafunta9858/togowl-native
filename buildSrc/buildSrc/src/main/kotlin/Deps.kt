@@ -6,8 +6,9 @@ import org.gradle.api.Project
 object Versions {
     const val jetpack = "1.1.0-beta01"
     const val ktor = "1.6.5"
+    const val napier = "2.3.0"
+    const val kotlinxSerialization = "1.3.2"
 }
-
 
 object Deps {
     object JetBrains {
@@ -26,6 +27,9 @@ object Deps {
 
             class Serialization internal constructor(kotlinVersion: Any) {
                 val gradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
+                private val version = Versions.kotlinxSerialization
+                val core = "org.jetbrains.kotlinx:kotlinx-serialization-core:$version"
+                val json = "org.jetbrains.kotlinx:kotlinx-serialization-json:$version"
             }
         }
 
@@ -93,10 +97,15 @@ object Deps {
         const val clientJson = "io.ktor:ktor-client-json:$version"
         const val clientLogging = "io.ktor:ktor-client-logging:$version"
         const val clientSerialization = "io.ktor:ktor-client-serialization:$version"
-        const val clientAndroid = "io.ktor:ktor-client-android:$version"
+        const val clientOkhttp = "io.ktor:ktor-client-okhttp:$version"
         const val clientJava = "io.ktor:ktor-client-java:$version"
         const val clientIos = "io.ktor:ktor-client-ios:$version"
         const val clientJs = "io.ktor:ktor-client-js:$version"
+    }
+
+    object Napier {
+        private const val version = Versions.napier
+        const val core = "io.github.aakira:napier:$version"
     }
 
 //    object ArkIvanov {

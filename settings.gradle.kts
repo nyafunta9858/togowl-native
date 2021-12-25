@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        google()
         gradlePluginPortal()
         mavenCentral()
         maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")
@@ -9,8 +10,11 @@ pluginManagement {
 rootProject.name = "TogowlNative"
 
 include(
-    ":common",
     ":android",
-    ":web",
-    ":desktop",
+//    ":web",
+//    ":desktop",
+)
+
+include(
+    ":common:main",
 )

@@ -17,12 +17,12 @@ kotlin {
     }
 
     sourceSets {
-        named("jsMain") {
+        val jsMain by getting {
             dependencies {
                 implementation(compose.web.widgets)
                 implementation(compose.web.core)
                 implementation(compose.runtime)
-                implementation(project(":common"))
+                implementation(project(":common:main"))
             }
         }
     }

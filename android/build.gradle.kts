@@ -59,8 +59,6 @@ android {
     }
 }
 
-
-@OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 dependencies {
 
     implementation(Deps.AndroidX.Core.coreKtx)
@@ -79,4 +77,5 @@ dependencies {
     debugImplementation(Deps.AndroidX.Compose.uiTooling)
     debugImplementation(Deps.AndroidX.Compose.uiTestManifest)
 
+    implementation(project(":common:main"))
 }
