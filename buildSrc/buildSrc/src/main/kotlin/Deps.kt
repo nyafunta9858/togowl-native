@@ -5,11 +5,11 @@ import org.gradle.api.Project
 
 object Versions {
     const val jetpack = "1.1.0-beta01"
-    const val ktor = "1.6.5"
+    const val ktor = "1.6.7"
     const val napier = "2.3.0"
     const val kotlinxSerialization = "1.3.2"
 }
-
+// DependencyHandlerの拡張でKotlinのを追加したい
 object Deps {
     object JetBrains {
         class Kotlin(project: Project) {
@@ -89,18 +89,14 @@ object Deps {
 
     object Ktor {
         private const val version = Versions.ktor
-        const val serverCore = "io.ktor:ktor-server-core:$version"
-        const val serverNetty = "io.ktor:ktor-server-netty:$version"
-        const val serialization = "io.ktor:ktor-serialization:$version"
-        const val websockets = "io.ktor:ktor-websockets:$version"
         const val clientCore = "io.ktor:ktor-client-core:$version"
         const val clientJson = "io.ktor:ktor-client-json:$version"
         const val clientLogging = "io.ktor:ktor-client-logging:$version"
         const val clientSerialization = "io.ktor:ktor-client-serialization:$version"
         const val clientOkhttp = "io.ktor:ktor-client-okhttp:$version"
         const val clientJava = "io.ktor:ktor-client-java:$version"
-        const val clientIos = "io.ktor:ktor-client-ios:$version"
         const val clientJs = "io.ktor:ktor-client-js:$version"
+        const val serialization = "io.ktor:ktor-serialization:$version"
     }
 
     object Napier {

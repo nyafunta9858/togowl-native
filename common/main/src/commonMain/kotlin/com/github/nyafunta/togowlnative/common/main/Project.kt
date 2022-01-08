@@ -19,3 +19,5 @@ data class Project(
     val inboxProject: Boolean = false,
     val url: String
 )
+
+typealias Projects = List<Project>

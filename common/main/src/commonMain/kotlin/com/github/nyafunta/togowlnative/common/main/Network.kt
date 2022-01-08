@@ -7,17 +7,22 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
 
 class Network {
+
+    private val TOGGL_TOKEN: String by lazy {
+    }
 
     private val httpClient: HttpClient by lazy {
         initLogger()
 
         httpClient {
             install(JsonFeature) {
+                val json = kotlinx.serialization.json.Json {
+                    ignoreUnknownKeys = true
+                    prettyPrint = true
+                    isLenient = true
+                }
                 serializer = KotlinxSerializer(json)
             }
 
@@ -41,24 +46,29 @@ class Network {
         }
     }
 
-    suspend fun test(): List<Project> {
-        return httpClient.get<String>(urlString = "https://api.todoist.com/rest/v1/projects") {
-            header("Authorization", "Bearer $TOKEN")
-        }.let {
-            json.decodeFromString(it)
-        }
+    suspend fun projects(): Projects = httpClient.get(todoistRequestBuilder("projects"))
+
+    private fun todoistRequestBuilder(append: String) = HttpRequestBuilder(
+        scheme = "https",
+        host = "api.todoist.com",
+        path = "/rest/v1/$append"
+    ).apply {
+        header("Authorization", "Bearer $TOKEN")
     }
 
-    private companion object {
-        private const val TOKEN = ""
+    suspend fun togglUseData() = httpClient.get<String>(togglRequestBuilder("me"))
 
-        private val json = Json {
-            serializersModule = SerializersModule {
-            }
-            ignoreUnknownKeys = true
-            coerceInputValues = true
-            useAlternativeNames = false
-        }
+    private fun togglRequestBuilder(append: String) = HttpRequestBuilder(
+            scheme = "https",
+            host = "api.track.toggl.com",
+            path = "/api/v8/$append"
+    ).apply {
+        header("Authorization", "Basic $TOGGL_TOKEN")
+    }
+
+    suspend fun togglWorkspaces(): List<TogglProject> = httpClient.get(togglRequestBuilder("workspaces"))
+
+    private companion object {
     }
 
 }
