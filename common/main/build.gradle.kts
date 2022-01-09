@@ -15,6 +15,11 @@ kotlin {
                     implementation(clientSerialization)
                 }
 
+                // Koin
+                with(Deps.Koin) {
+                    implementation(core)
+                }
+
                 // logging
                 with(Deps.Napier) {
                     implementation(core)
@@ -27,11 +32,22 @@ kotlin {
                 }
             }
         }
+        val commonTest by getting {
+            dependencies {
+                // Ktor
+                with(Deps.Ktor) {
+                    implementation(clientMock)
+                }
+            }
+        }
 
         val androidMain by getting {
             dependencies {
                 with(Deps.Ktor) {
                     implementation(clientOkhttp)
+                }
+                with(Deps.Koin) {
+                    implementation(android)
                 }
             }
         }

@@ -70,6 +70,7 @@ dependencies {
     implementation(Deps.AndroidX.Compose.material3)
     implementation(Deps.AndroidX.Compose.uiToolingPreview)
     implementation(Deps.AndroidX.Lifecycle.runtimeKtx)
+    implementation(Deps.Koin.android)
     testImplementation(Deps.AndroidX.Test.junit4)
     androidTestImplementation(Deps.AndroidX.Test.junit4Ext)
     androidTestImplementation(Deps.AndroidX.Test.espressoCore)

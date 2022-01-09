@@ -6,6 +6,7 @@ import org.gradle.api.Project
 object Versions {
     const val jetpack = "1.1.0-beta01"
     const val ktor = "1.6.7"
+    const val koin = "3.1.4"
     const val napier = "2.3.0"
     const val kotlinxSerialization = "1.3.2"
 }
@@ -97,6 +98,16 @@ object Deps {
         const val clientJava = "io.ktor:ktor-client-java:$version"
         const val clientJs = "io.ktor:ktor-client-js:$version"
         const val serialization = "io.ktor:ktor-serialization:$version"
+        const val clientMock = "io.ktor:ktor-client-mock:$version"
+    }
+
+    object Koin {
+        private const val version = Versions.koin
+        const val core = "io.insert-koin:koin-core:$version"
+        const val android = "io.insert-koin:koin-android:$version"
+        // test
+        const val test = "io.insert-koin:koin-test:$version"
+        const val junit4 = "io.insert-koin:koin-test-junit4:$version"
     }
 
     object Napier {
