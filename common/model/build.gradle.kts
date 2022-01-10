@@ -7,6 +7,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                // Serialization
+                with(Deps.JetBrains.Kotlin(project).serialization) {
+                    implementation(core)
+                }
             }
         }
         val commonTest by getting {

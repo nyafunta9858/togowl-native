@@ -78,5 +78,6 @@ dependencies {
     debugImplementation(Deps.AndroidX.Compose.uiTooling)
     debugImplementation(Deps.AndroidX.Compose.uiTestManifest)
 
-    implementation(project(":domain"))
+    implementation(project(":model"))
+    implementation(project(":infra:api"))
 }

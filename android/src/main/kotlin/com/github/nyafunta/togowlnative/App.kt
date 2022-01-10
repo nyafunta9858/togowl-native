@@ -1,7 +1,7 @@
 package com.github.nyafunta.togowlnative
 
 import android.app.Application
-import com.github.nyafunta.togowlnative.common.main.apiModule
+import com.github.nyafunta.togowlnative.infra.api.apiModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
