@@ -22,7 +22,7 @@ kotlin {
                 implementation(compose.web.widgets)
                 implementation(compose.web.core)
                 implementation(compose.runtime)
-                implementation(project(":common:main"))
+//                implementation(project(":common:main"))
             }
         }
     }

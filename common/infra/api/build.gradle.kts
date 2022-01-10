@@ -7,6 +7,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(project(":domain"))
+                api(project(":model"))
+
                 // Ktor
                 with(Deps.Ktor) {
                     implementation(clientCore)
