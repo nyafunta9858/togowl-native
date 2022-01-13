@@ -8,6 +8,7 @@ import io.ktor.client.request.*
 class Network(private val httpClient: HttpClient) {
 
     private val TOGGL_TOKEN: String by lazy {
+        "dummy token"
     }
 
     suspend fun projects(): Projects = httpClient.get(todoistRequestBuilder("projects"))
@@ -33,6 +34,7 @@ class Network(private val httpClient: HttpClient) {
     suspend fun togglWorkspaces(): List<TogglProject> = httpClient.get(togglRequestBuilder("workspaces"))
 
     private companion object {
+        private const val TOGGL_TOKEN = "Dummy token"
     }
 
 }
