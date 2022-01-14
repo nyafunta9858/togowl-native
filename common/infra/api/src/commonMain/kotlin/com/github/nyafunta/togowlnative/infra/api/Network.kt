@@ -34,7 +34,7 @@ class Network(private val httpClient: HttpClient) {
     suspend fun togglWorkspaces(): List<TogglProject> = httpClient.get(togglRequestBuilder("workspaces"))
 
     private companion object {
-        private const val TOGGL_TOKEN = "Dummy token"
+        private const val TOKEN = "Dummy token"
     }
 
 }
