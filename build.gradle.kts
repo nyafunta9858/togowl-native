@@ -11,3 +11,11 @@ allprojects {
         mavenLocal()
     }
 }
+
+subprojects {
+    if (hasProperty("kotlin") || hasProperty("android")) {
+        apply(plugin = "detekt-setup")
+    }
+}
+
+apply(plugin = "detekt-report-setup")
