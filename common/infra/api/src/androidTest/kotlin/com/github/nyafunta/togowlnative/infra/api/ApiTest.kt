@@ -1,4 +1,4 @@
-package com.github.nyafunta.togowlnative.common.main
+package com.github.nyafunta.togowlnative.infra.api
 
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*

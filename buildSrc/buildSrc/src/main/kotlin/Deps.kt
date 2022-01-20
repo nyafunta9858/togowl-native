@@ -9,6 +9,7 @@ object Versions {
     const val koin = "3.1.4"
     const val napier = "2.3.0"
     const val kotlinxSerialization = "1.3.2"
+    const val detekt = "1.19.0"
 }
 // DependencyHandlerの拡張でKotlinのを追加したい
 object Deps {
@@ -115,6 +116,10 @@ object Deps {
         const val core = "io.github.aakira:napier:$version"
     }
 
+    object Detekt {
+        private const val version = Versions.detekt
+        const val gradlePlugin = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$version"
+    }
 //    object ArkIvanov {
 //        object MVIKotlin {
 //            private const val VERSION = "3.0.0-alpha01"
