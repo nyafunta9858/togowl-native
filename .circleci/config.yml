@@ -36,6 +36,11 @@ jobs:
           name: android test
           command: ./gradlew lint testDebug --continue
 
+      # run and collect coverage reports
+      - run:
+          name: collect coverage report
+          command: ./gradlew koverMergedXmlReport
+
       # update Codecov status
       - codecov/upload:
           file: build/merged-kover-report/report.xml 
