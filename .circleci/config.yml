@@ -13,6 +13,9 @@ executors:
       JAVA_OPTS: "-Xmx1024m"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.daemon=false -Dorg.gradle.parallel=false'
 
+orbs:
+  codecov: codecov/codecov@3.2.2
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -32,6 +35,10 @@ jobs:
       - run:
           name: android test
           command: ./gradlew lint testDebug --continue
+
+      # update Codecov status
+      - codecov/upload:
+          file: build/merged-kover-report/report.xml 
 
       # And finally run the release build
       - run:
