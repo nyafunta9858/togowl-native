@@ -19,3 +19,4 @@ subprojects {
 }
 
 apply(plugin = "detekt-report-setup")
+apply(plugin = "kover-setup")
