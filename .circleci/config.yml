@@ -62,7 +62,7 @@ jobs:
             ./gradlew bundleRelease
 
       - deploygate-upload-app/upload-app:
-          api_key: '357d28c3007e7e769429475484242fb07224741f' 
+          api_key: ${DEPLOYGATE_TOKEN}
           owner_name: nyafunta 
           app_path: ./android/build/outputs/bundle/release/android-release.aab 
 
