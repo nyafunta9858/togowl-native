@@ -15,12 +15,13 @@ executors:
 
 orbs:
   codecov: codecov/codecov@3.2.2
+  deploygate-upload-app: jmatsu/deploygate-upload-app@0.0.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
-  build-and-test:
+  deploy-after-test:
     # These next lines define the Android machine image executor.
     # See: https://circleci.com/docs/2.0/executor-types/
     executor: android
@@ -31,15 +32,24 @@ jobs:
       # Checkout the code as the first step.
       - checkout
 
-      # The next step will run the unit tests
+      # run android lint
+      - run:
+          name: android lint
+          command: ./gradlew lint --continue
+
+      # run and collect detekt reports
+      - run:
+          name: detekt
+          command: ./gradlew mergeDetektReports --continue
+
       - run:
           name: android test
-          command: ./gradlew lint testDebug --continue
+          command: ./gradlew testDebugUnitTest --continue
 
       # run and collect coverage reports
       - run:
           name: collect coverage report
-          command: ./gradlew koverMergedXmlReport
+          command: ./gradlew koverMergedXmlReport --continue
 
       # update Codecov status
       - codecov/upload:
@@ -51,10 +61,15 @@ jobs:
           command: |
             ./gradlew bundleRelease
 
+      - deploygate-upload-app/upload-app:
+          api_key: '357d28c3007e7e769429475484242fb07224741f' 
+          owner_name: nyafunta 
+          app_path: ./android/build/outputs/bundle/release/android-release.aab 
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  buildAndroid: # This is the name of the workflow, feel free to change it to better match your workflow.
+  deployAndroid:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build-and-test
+      - deploy-after-test
