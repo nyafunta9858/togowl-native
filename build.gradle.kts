@@ -13,9 +13,10 @@ allprojects {
 }
 
 subprojects {
-    if (hasProperty("kotlin") || hasProperty("android")) {
+    if (hasProperty("kotlin")) {
         apply(plugin = "detekt-setup")
     }
 }
 
 apply(plugin = "detekt-report-setup")
+apply(plugin = "kover-setup")
