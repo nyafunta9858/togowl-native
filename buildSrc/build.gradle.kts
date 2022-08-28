@@ -5,6 +5,7 @@ plugins {
 repositories {
     mavenLocal()
     google()
+    maven("https://maven.google.com/")
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }

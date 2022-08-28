@@ -8,6 +8,10 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":model"))
+
+                with(Deps.JetBrains.Kotlin.Coroutines) {
+                    implementation(core)
+                }
             }
         }
         val commonTest by getting {

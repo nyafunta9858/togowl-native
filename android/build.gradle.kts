@@ -20,6 +20,9 @@ android {
     }
 
     buildTypes {
+        debug {
+        }
+
         release {
             isMinifyEnabled = true
             proguardFiles.addAll(
@@ -32,8 +35,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     sourceSets {
@@ -43,7 +46,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     buildFeatures {
@@ -51,23 +54,34 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.jetpack
+        kotlinCompilerExtensionVersion = Versions.compose
     }
 
     packagingOptions {
         resources.excludes += "/META-INF/*"
     }
+    namespace = "com.github.nyafunta.togowlnative"
 }
 
 dependencies {
+    // modules
+    implementation(project(":model"))
+    implementation(project(":infra:api"))
+    implementation(project(":infra:preference"))
 
+    // libs
     implementation(Deps.AndroidX.Core.coreKtx)
     implementation(Deps.AndroidX.Activity.activityCompose)
     implementation(Deps.AndroidX.AppCompat.appCompat)
+    implementation(Deps.AndroidX.Browser.browser)
     implementation(Deps.AndroidX.Compose.ui)
-    // TODO: Composeを使うかJetpack Composeを使うかは使ってみて判断する
-//    implementation(compose.material3)
-    implementation(Deps.AndroidX.Compose.material3)
+    implementation(Deps.AndroidX.Compose.animation)
+    implementation(Deps.AndroidX.Compose.material)
+//    implementation(Deps.AndroidX.Compose.material3)
+    implementation(Deps.AndroidX.Compose.navigation)
+    implementation(Deps.AndroidX.Compose.Accompanist.systemUiController)
+    implementation(Deps.AndroidX.Compose.runtime)
+    implementation(Deps.AndroidX.Compose.liveData)
     implementation(Deps.AndroidX.Compose.uiToolingPreview)
     implementation(Deps.AndroidX.Lifecycle.runtimeKtx)
     implementation(Deps.Koin.android)
@@ -78,6 +92,7 @@ dependencies {
     debugImplementation(Deps.AndroidX.Compose.uiTooling)
     debugImplementation(Deps.AndroidX.Compose.uiTestManifest)
 
-    implementation(project(":model"))
-    implementation(project(":infra:api"))
+    debugImplementation("com.facebook.flipper:flipper:0.144.0")
+    debugImplementation("com.facebook.soloader:soloader:0.10.3")
+    releaseImplementation("com.facebook.flipper:flipper-noop:0.144.0")
 }

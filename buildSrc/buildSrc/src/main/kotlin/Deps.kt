@@ -4,18 +4,19 @@
 import org.gradle.api.Project
 
 object Versions {
-    const val jetpack = "1.1.0-beta01"
-    const val ktor = "1.6.7"
-    const val koin = "3.1.4"
-    const val napier = "2.3.0"
-    const val kotlinxSerialization = "1.3.2"
-    const val detekt = "1.19.0"
+    const val compose = "1.2.0-alpha08"
+    const val ktor = "2.0.3"
+    const val koin = "3.2.0"
+    const val napier = "2.6.1"
+    const val kotlinxSerialization = "1.3.3"
+    const val detekt = "1.20.0"
+    const val kover = "0.5.1"
 }
 // DependencyHandlerの拡張でKotlinのを追加したい
 object Deps {
     object JetBrains {
         class Kotlin(project: Project) {
-            private val version = project.properties["kotlin.version"] ?: "1.5.31"
+            private val version = project.properties["kotlin.version"] ?: "1.6.20"
             val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
             val testCommon = "org.jetbrains.kotlin:kotlin-test-common:$version"
             val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$version"
@@ -33,22 +34,31 @@ object Deps {
                 val core = "org.jetbrains.kotlinx:kotlinx-serialization-core:$version"
                 val json = "org.jetbrains.kotlinx:kotlinx-serialization-json:$version"
             }
+
+            val reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
+
+            object Coroutines {
+                private const val version = "1.6.1"
+                const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+                const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+                const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
+            }
         }
 
         class Compose(private val project: Project) {
-            private val VERSION = project.properties["compose.version"]
-            val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$VERSION"
+            private val version = project.properties["compose.version"]
+            val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$version"
         }
     }
 
     object Android {
-        const val compileSdk = 31
-        const val targetSdk = 31
+        const val compileSdk = 33
+        const val targetSdk = 33
         const val minSdk = 24
 
         object Tools {
             object Build {
-                const val gradlePlugin = "com.android.tools.build:gradle:7.0.4"
+                const val gradlePlugin = "com.android.tools.build:gradle:7.2.2"
             }
         }
     }
@@ -56,29 +66,52 @@ object Deps {
     object AndroidX {
 
         object Core {
-            const val coreKtx = "androidx.core:core-ktx:1.7.0"
+            const val coreKtx = "androidx.core:core-ktx:1.8.0"
         }
 
         object AppCompat {
-            const val appCompat = "androidx.appcompat:appcompat:1.3.0"
+            const val appCompat = "androidx.appcompat:appcompat:1.4.2"
         }
 
         object Activity {
-            const val activityCompose = "androidx.activity:activity-compose:1.4.0"
+            const val activityCompose = "androidx.activity:activity-compose:1.5.0"
+        }
+
+        object Browser {
+            const val browser = "androidx.browser:browser:1.3.0"
         }
 
         object Compose {
-            private const val version = Versions.jetpack
-            const val ui = "androidx.compose.ui:ui:${Versions.jetpack}"
-            const val material3 = "androidx.compose.material3:material3:1.0.0-alpha01"
+            private const val version = Versions.compose
+            const val ui = "androidx.compose.ui:ui:$version"
+            const val animation = "androidx.compose.animation:animation:$version"
+            const val material = "androidx.compose.material:material:$version"
+            const val material3 = "androidx.compose.material3:material3:1.0.0-alpha10"
+            const val runtime = "androidx.compose.runtime:runtime:$version"
+            const val navigation = "androidx.navigation:navigation-compose:2.5.0"
+            const val liveData = "androidx.compose.runtime:runtime-livedata:$version"
+            const val uiTooling = "androidx.compose.ui:ui-tooling:$version"
             const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
             const val uiTestJunit4 = "androidx.compose.ui:ui-test-junit4:$version"
-            const val uiTooling = "androidx.compose.ui:ui-tooling:$version"
             const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:$version"
+
+            object Accompanist {
+                const val systemUiController = "com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc"
+            }
         }
 
         object Lifecycle {
-            const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+            private const val version = "2.5.0"
+            const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
+            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
+            const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
+            const val savedStateForViewModel =
+                "androidx.lifecycle:lifecycle-viewmodel-savedstate:$version"
+        }
+
+        object DataStore {
+            private const val version = "1.0.0"
+            const val core = "androidx.datastore:datastore-preferences:$version"
         }
 
         object Test {
@@ -86,19 +119,26 @@ object Deps {
             const val junit4Ext = "androidx.test.ext:junit:1.1.3"
             const val espressoCore = "androidx.test.espresso:espresso-core:3.4.0"
         }
+    }
 
+    object Ktorfit {
+        private const val version = "1.0.0-beta06"
+        const val core = "de.jensklingenberg.ktorfit:ktorfit-lib:$version"
+        const val ksp = "de.jensklingenberg.ktorfit:ktorfit-ksp:$version"
     }
 
     object Ktor {
         private const val version = Versions.ktor
         const val clientCore = "io.ktor:ktor-client-core:$version"
-        const val clientJson = "io.ktor:ktor-client-json:$version"
+//        const val clientJson = "io.ktor:ktor-client-json:$version"
         const val clientLogging = "io.ktor:ktor-client-logging:$version"
-        const val clientSerialization = "io.ktor:ktor-client-serialization:$version"
+        const val clientAuth = "io.ktor:ktor-client-auth:$version"
+//        const val clientSerialization = "io.ktor:ktor-client-serialization:$version"
         const val clientOkhttp = "io.ktor:ktor-client-okhttp:$version"
         const val clientJava = "io.ktor:ktor-client-java:$version"
         const val clientJs = "io.ktor:ktor-client-js:$version"
-        const val serialization = "io.ktor:ktor-serialization:$version"
+        const val negotiation = "io.ktor:ktor-client-content-negotiation:$version"
+        const val serializationJson = "io.ktor:ktor-serialization-kotlinx-json:$version"
         const val clientMock = "io.ktor:ktor-client-mock:$version"
     }
 
@@ -106,6 +146,7 @@ object Deps {
         private const val version = Versions.koin
         const val core = "io.insert-koin:koin-core:$version"
         const val android = "io.insert-koin:koin-android:$version"
+
         // test
         const val test = "io.insert-koin:koin-test:$version"
         const val junit4 = "io.insert-koin:koin-test-junit4:$version"

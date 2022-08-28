@@ -31,7 +31,9 @@ project(":model").projectDir = file("./common/model")
 
 include(
     ":infra:api",
-    ":infra:db"
+    ":infra:db",
+    ":infra:preference"
 )
 project(":infra:api").projectDir = file("./common/infra/api")
 project(":infra:db").projectDir = file("./common/infra/db")
+project(":infra:preference").projectDir = file("./common/infra/preference")

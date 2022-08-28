@@ -1,6 +1,8 @@
 plugins {
     id("multiplatform-setup")
     id("android-lib-setup")
+    id("com.google.devtools.ksp") version "1.6.20-1.0.5"
+    id("kotlinx-serialization")
 }
 
 kotlin {
@@ -10,12 +12,26 @@ kotlin {
                 api(project(":domain"))
                 api(project(":model"))
 
+                with(Deps.JetBrains.Kotlin(project)) {
+                    implementation(reflect)
+                    // Serialization
+                    with(serialization) {
+                        implementation(core)
+                        implementation(json)
+                    }
+                }
+
                 // Ktor
                 with(Deps.Ktor) {
-                    implementation(clientCore)
-                    implementation(clientJson)
+//                    implementation(clientCore)
+                    implementation(clientAuth)
                     implementation(clientLogging)
-                    implementation(clientSerialization)
+                    implementation(serializationJson)
+                    implementation(negotiation)
+                }
+
+                with(Deps.Ktorfit) {
+                    implementation(core)
                 }
 
                 // Koin
@@ -27,12 +43,6 @@ kotlin {
                 with(Deps.Napier) {
                     implementation(core)
                 }
-
-                // Serialization
-                with(Deps.JetBrains.Kotlin(project).serialization) {
-                    implementation(core)
-                    implementation(json)
-                }
             }
         }
         val commonTest by getting {
@@ -40,6 +50,9 @@ kotlin {
                 // Ktor
                 with(Deps.Ktor) {
                     implementation(clientMock)
+                }
+                with(Deps.JetBrains.Kotlin.Coroutines) {
+                    implementation(test)
                 }
             }
         }
@@ -52,6 +65,11 @@ kotlin {
                 with(Deps.Koin) {
                     implementation(android)
                 }
+            }
+        }
+        val androidDebug by getting {
+            dependencies {
+                implementation("com.facebook.flipper:flipper-network-plugin:0.144.0")
             }
         }
 
@@ -68,4 +86,10 @@ kotlin {
 //            }
 //        }
     }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", Deps.Ktorfit.ksp)
+//    add("kspCommonMainMetadata", Deps.Ktorfit.ksp)
+    add("kspAndroid", Deps.Ktorfit.ksp)
 }

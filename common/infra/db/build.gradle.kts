@@ -10,14 +10,6 @@ kotlin {
                 api(project(":domain"))
                 api(project(":model"))
 
-                // Ktor
-                with(Deps.Ktor) {
-                    implementation(clientCore)
-                    implementation(clientJson)
-                    implementation(clientLogging)
-                    implementation(clientSerialization)
-                }
-
                 // Koin
                 with(Deps.Koin) {
                     implementation(core)
